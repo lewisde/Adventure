@@ -38,11 +38,11 @@ def main():
             teleport(player)
             print(player.location)
         elif command[0] == 'wield':
-            player.wield(command[1])
+            player.wield(command)
         elif command[0] == 'wear':
-            player.wear(command[1])
+            player.wear(command)
         elif command[0] == 'attack' or command[0] == 'kill':
-            player.attack(command[1])
+            player.attack(command)
         else:
             print('\nI don\'t understand you.\n')
 

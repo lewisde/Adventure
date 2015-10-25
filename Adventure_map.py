@@ -26,12 +26,12 @@ claws = Item('claws', front, 5, 10, 'a monster\'s')
 table = Item('table', kitchen, 0, 0, 'a kitchen table')
 kitchen.add_object(table)
 
-monster = Player('Monster')
+monster = Player('monster')
 monster.weapon = claws
 monster.location = front
 monster.armor = leather
 
-player = Player('Player')
+player = Player('player')
 player.armor = leather
 
 player_list = []
@@ -46,6 +46,6 @@ for item in a:
 
 def move_others():
     for creature in player_list:
-        if creature.name != 'Player' and creature.location == player.location:
+        if creature.name != 'player' and creature.location == player.location:
             print('\nFound you!\n')
-            creature.attack('Player')
+            creature.attack(['attack', 'player'])

@@ -26,7 +26,7 @@ class Room:
     def __str__(self):
         output = '\nYou are in the {}.\n'.format(self.name)
         for char in Adventure_map.player_list:
-            if char.name != 'Player':
+            if char.name != 'player':
                 if char.location.name == self.name:
                     output += '\nThere is a {} here!\n\n'.format(char.name)
         output += 'You can see exits: '
@@ -165,29 +165,41 @@ class Player:
                 else:
                     print('\nYou don\'t have that!\n')
 
-    def wield(self, item):
+    def wield(self, command):
+        if len(command) < 2:
+            print('\n{} what?\n'.format(
+                command[0][0].upper() + command[0][1:]))
+            return
         for thing in self.inventory:
-            if item == thing.name:
+            if command[1] == thing.name:
                 self.weapon = thing
                 self.inventory.remove(thing)
-                print('\nYou are nw wielding {}.\n'.format(thing.description))
+                print('\nYou are now wielding {}.\n'.format(thing.description))
                 return
         else:
             print('\nYou don\'t have that!\n')
 
-    def wear(self, item):
-        if item in self.inventory:
-            self.armor = item
-            self.inventory.remove(item)
+    def wear(self, command):
+        if len(command) < 2:
+            print('\n{} what?\n'.format(
+                command[0][0].upper() + command[0][1:]))
+            return
+        if command[1] in self.inventory:
+            self.armor = command[1]
+            self.inventory.remove(command[1])
         else:
             print('\nYou don\'t have that!\n')
 
-    def attack(self, monster):
+    def attack(self, command):
+        if len(command) < 2:
+            print('\n{} what?\n'.format(
+                command[0][0].upper() + command[0][1:]))
+            return
         if not self.weapon:
             print('You don\'t have a weapon!\n')
         else:
             for enemy in Adventure_map.player_list:
-                if enemy.name == monster and enemy.location == self.location:
+                if enemy.name == command[1] and enemy.location == self.location:
                     damage = self.weapon.damage - enemy.armor.damage
                     if damage > 0:
                         enemy.health -= damage
@@ -204,4 +216,4 @@ class Player:
                         print(self.location)
                     return
             else:
-                print('\nThe {} isn\'t here!\n'.format(monster.name))
+                print('\nThe {} isn\'t here!\n'.format(command[1]))

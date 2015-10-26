@@ -88,7 +88,7 @@ class Player:
     weapon = 0
     armor = 0
     location = None
-    name = 'Player'
+    name = ''
 
     def __init__(self, name):
         self.inventory = []
@@ -104,7 +104,8 @@ class Player:
         output = ''
         if self.inventory:
             for item in self.inventory:
-                output += '    {} - {}\n'.format(item.name, item.description)
+                # output += '    {} - {}\n'.format(item.name, item.description)
+                output += item.__str__()
         if self.weapon:
             output += 'Wielding: {} - {}\n'.format(
                 self.weapon.name, self.weapon.description)
@@ -112,7 +113,7 @@ class Player:
             output += 'Wearing: {} - {}\n'.format(
                 self.armor.name, self.armor.description)
         if output:
-            output = 'Inventory:\n' + output
+            output = '\nInventory:\n' + output
         else:
             output = '\nYour pockets are empty.\n'
         return output
@@ -196,7 +197,7 @@ class Player:
                 command[0][0].upper() + command[0][1:]))
             return
         if not self.weapon:
-            print('You don\'t have a weapon!\n')
+            print('\nYou don\'t have a weapon!\n')
         else:
             for enemy in Adventure_map.player_list:
                 if enemy.name == command[1] and enemy.location == self.location:
@@ -205,7 +206,7 @@ class Player:
                         enemy.health -= damage
                     print('\n{} has been hit!\n'.format(enemy.name))
                     if enemy.health <= 0:
-                        print('The {} is dead!'.format(enemy.name))
+                        print('\nThe {} is dead!\n'.format(enemy.name))
                         if enemy.weapon:
                             self.location.items.append(enemy.weapon)
                         if enemy.armor:

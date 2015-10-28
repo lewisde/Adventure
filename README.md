@@ -8,10 +8,8 @@ Rooms began with names and exits, exits being a dictionary of other rooms, the k
 
 Items and objects differ in that objects are not interactable. Items can be picked up, dropped, and wielded or worn. 
 
-Players have inventory, health, and the ability to fight. Currently, monsters are of the player class and don't move. This can be changed in the move_others() function in Adeventure_map.py.
+Players have inventory, health, and the ability to fight. Currently, monsters are of the player class and don't move. This can be changed in the move_others() function.
 
 All instances can be printed to show their contents through look (Rooms) and list(Players). Items show in either case.
-
-It should be possible to expand Adventure_map.py to a large world with few changes to Adventure.py or Adventure_classes.py.
 
 This was a fun exercise. I will add functionality as ideas come.

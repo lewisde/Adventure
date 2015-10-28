@@ -3,11 +3,6 @@ import mymap
 
 class Room:
 
-    exits = {}
-    name = ''
-    items = []
-    objects = []
-
     def __init__(self, name, exits, items, objects):
         self.name = name
         self.exits = exits
@@ -49,12 +44,6 @@ class Room:
 
 class Item:
 
-    name = ''
-    value = 0
-    description = ''
-    location = ''
-    damage = 0
-
     def __init__(self, name, location, damage, value, description):
         self.name = name
         self.location = location
@@ -83,12 +72,6 @@ class Item:
 
 
 class Player:
-    inventory = []
-    health = 0
-    weapon = 0
-    armor = 0
-    location = None
-    name = ''
 
     def __init__(self, name):
         self.inventory = []
@@ -99,12 +82,9 @@ class Player:
         self.name = name
 
     def __str__(self):
-        # output = '\n{}: {}, {}, {}, {}'.format(
-        #     self.name, self.location, self.health, self.weapon, self.armor)
         output = ''
         if self.inventory:
             for item in self.inventory:
-                # output += '    {} - {}\n'.format(item.name, item.description)
                 output += item.__str__()
         if self.weapon:
             output += 'Wielding: {} - {}\n'.format(

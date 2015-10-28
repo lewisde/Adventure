@@ -2,16 +2,15 @@
 # dlewis@olivetcollege.edu
 
 import random
-import Adventure_map
+import mymap
 
 
 def main():
-    player = Adventure_map.player
-    # for character in Adventure_map.player_list:
-    #     teleport(character)
+    player = mymap.player
+    for character in mymap.player_list:
+        teleport(character)
 
-    # teleport(player)
-    player.location = Adventure_map.front
+    teleport(player)
 
     print(command_help())
 
@@ -46,7 +45,7 @@ def main():
         else:
             print('\nI don\'t understand you.\n')
 
-        Adventure_map.move_others()
+        mymap.move_others()
 
         command = input('>>> ').lower().split()
         while not command:
@@ -54,7 +53,7 @@ def main():
 
 
 def teleport(player):
-    teleport_list = Adventure_map.teleport_list
+    teleport_list = mymap.teleport_list
     next = random.choice(range(len(teleport_list)))
     player.location = teleport_list[next]
 

@@ -20,16 +20,18 @@ attic.doors({'down': kitchen})
 basement.doors({'up': kitchen})
 bedroom.doors({'down': rear})
 
-knife = Item('knife', front, 20, 10, 'a pig sticker')
+# self, name, location, modifier, value, description, kind
+
+knife = Item('knife', front, 20, 10, 'a pig sticker', 'weapon')
 front.add_item(knife)
 
-leather = Item('armor', front, 5, 10, 'leather')
+leather = Item('leather', front, 5, 10, 'armor', 'armor')
 
-skin = Item('skin', None, 0, 0, 'your epidermis')
+Item.skin = Item('skin', None, 0, 0, 'your epidermis', 'armor')
 
-claws = Item('claws', front, 5, 10, 'a monster\'s')
+claws = Item('claws', front, 5, 10, 'a monster\'s', 'weapon')
 
-table = Item('table', kitchen, 0, 0, 'a kitchen table')
+table = Item('table', kitchen, 0, 0, 'a kitchen table', 'object')
 kitchen.add_object(table)
 
 monster = Player('monster')
@@ -38,7 +40,7 @@ monster.location = front
 monster.armor = leather
 
 player = Player('player')
-player.armor = skin
+player.armor = Item.skin
 
 
 def main():

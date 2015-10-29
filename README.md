@@ -32,11 +32,11 @@ wear *armor* - Transfers armor from player inventory to player body
 
 teleport - Places player in a pseudo-randomly chosen room.
 
-use - I'm envisioning scrolls/spells/artifacts but this could also be used for object iteraction
+use *item/object*- I'm envisioning scrolls/spells/artifacts but this could also be used for object iteraction
 
-eat - This will enable consumption of items to increase health (heal) or other effects
+eat *item* - This will enable consumption of items to increase health (heal) or other effects
 
-drink - This will enable consumption of items to increase health (heal) or other effects
+drink *item* - This will enable consumption of items to increase health (heal) or other effects
 
 help - Displays list of commands
 

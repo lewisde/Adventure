@@ -44,19 +44,23 @@ class Room:
 class Item:
     item_list = []
 
-    def __init__(self, name, location, damage, value, description):
+    skin = None
+
+    def __init__(self, name, location, modifier, value, description, kind):
         self.name = name
         self.location = location
         self.value = value
         self.description = description
-        self.damage = damage
+        self.kind = kind
+        self.modifier = modifier
         Item.item_list.append(self)
 
     def __str__(self):
-        output = '{}, {} - damage: {}, value: {} coin\n'.format(
+        output = '{}, {} - {} {}, coin {}\n'.format(
             self.name,
             self.description,
-            self.damage,
+            self.kind,
+            self.modifier,
             self.value)
         return output
 
@@ -86,7 +90,7 @@ class Player:
         output = ''
         if self.inventory:
             for item in self.inventory:
-                output += item.__str__()
+                output += str(item)
         if self.weapon:
             output += '\nWielding: {} - {}\n'.format(
                 self.weapon.name, self.weapon.description)
@@ -136,9 +140,12 @@ class Player:
                 self.weapon = None
                 print('\nOkay\n')
             elif self.armor and command[1] == self.armor.name:
-                self.location.items.append(self.armor)
-                # self.armor = mymap.skin
-                print('\nOkay\n')
+                if self.armor.name != 'skin':
+                    self.location.items.append(self.armor)
+                    self.armor.name = Item.skin
+                    print('\nOkay\n')
+                else:
+                    print('\nYou cannot remove your skin!\n')
             else:
                 for item in self.inventory:
                     if command[1] == item.name:
@@ -155,7 +162,7 @@ class Player:
                 command[0][0].upper() + command[0][1:]))
         else:
             for thing in self.inventory:
-                if command[1] == thing.name:
+                if command[1] == thing.name and thing.kind == 'weapon':
                     self.weapon = thing
                     self.inventory.remove(thing)
                     print('\nYou are now wielding {}.\n'.format(
@@ -170,31 +177,33 @@ class Player:
                 command[0][0].upper() + command[0][1:]))
         else:
             for item in self.inventory:
-                if command[1] == item.name:
+                if command[1] == item.name and item.kind == 'armor':
+                    if self.armor.name != 'skin':
+                        self.inventory.remove(item)
                     self.armor = item
-                    self.inventory.remove(item)
                     print('\nYou are now wearing {}.\n'.format(item.name))
                     break
-                else:
-                    print('\nYou don\'t have that!\n')
+            else:
+                print('\nYou don\'t have that!\n')
 
     def attack(self, command):
         if len(command) < 2:
             print('\n{} what?\n'.format(
                 command[0][0].upper() + command[0][1:]))
-            return
-        if not self.weapon:
+        elif not self.weapon:
             print('\nYou don\'t have a weapon!\n')
         else:
             for enemy in Player.player_list:
                 if enemy.name == command[1] and \
                         enemy.location == self.location:
-                    damage = self.weapon.damage - enemy.armor.damage
+                    damage = self.weapon.modifier - enemy.armor.modifier
                     if damage > 0:
                         enemy.health -= damage
                     print('\n{} has been hit!\n'.format(enemy.name))
                     if enemy.health <= 0:
                         print('\nThe {} is dead!\n'.format(enemy.name))
+                        if enemy.name == 'player':
+                            quit()
                         if enemy.weapon:
                             self.location.items.append(enemy.weapon)
                         if enemy.armor:
@@ -206,3 +215,7 @@ class Player:
                     return
             else:
                 print('\nThe {} isn\'t here!\n'.format(command[1]))
+
+    def eat(self, command):
+        if len(command) < 2:
+            print()

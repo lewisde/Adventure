@@ -50,7 +50,7 @@ def main():
 
     teleport(player)
 
-    print(command_help())
+    command_help()
 
     print(player.location)
 
@@ -64,7 +64,7 @@ def main():
         elif command[0] == 'go':
             player.go_to(command)
         elif command[0] == 'help':
-            print(command_help())
+            command_help()
         elif command[0] == 'get':
             player.add_to_inventory(command)
         elif command[0] == 'drop':
@@ -80,14 +80,12 @@ def main():
             player.wear(command)
         elif command[0] == 'attack' or command[0] == 'kill':
             player.attack(command)
-        elif command[0] == 'health':
-            print(player.health)
         elif command[0] == 'eat':
-            pass
+            player.eat(command)
         elif command[0] == 'drink':
-            pass
+            player.drink(command)
         elif command[0] == 'use':
-            pass
+            player.use(command)
         else:
             print('\nI don\'t understand you.\n')
 
@@ -112,9 +110,17 @@ def teleport(player):
 
 
 def command_help():
-    output = '\n\nCommands: go, look, get, drop, attack, kill, wield, wear,'
-    output += ' help, teleport, and quit.\n'
-    return output
+    print('\n\t\tCommands')
+    print('\tlook\t\tgo <direction>')
+    print('\tlist\t\tget <item>')
+    print('\tteleport\tdrop <item>')
+    print('\thelp\t\tattack/kill <monster>')
+    print('\tquit\t\twield <weapon>')
+    print('\t\t\twear <armor>')
+    print('\t\t\tuse <item/object>')
+    print('\t\t\teat <item>')
+    print('\t\t\tdrink <item>')
+
 
 if __name__ == '__main__':
     main()

@@ -87,7 +87,7 @@ class Player:
         Player.player_list.append(self)
 
     def __str__(self):
-        output = ''
+        output = '\n{} - {} health\n\n'.format(self.name, self.health)
         if self.inventory:
             for item in self.inventory:
                 output += str(item)
@@ -218,4 +218,62 @@ class Player:
 
     def eat(self, command):
         if len(command) < 2:
-            print()
+            print('\n{} what?\n'.format(
+                command[0][0].upper() + command[0][1:]))
+        else:
+            for item in self.inventory:
+                print(item.name)
+                if item.name == command[1]:
+                    if item.kind == 'food':
+                        self.health += item.modifier
+                        self.inventory.remove(item)
+                        print('\nYou feel healthier.\n')
+                        break
+                    elif item.kind == 'poison':
+                        self.health -= item.modifier
+                        self.inventory.remove(item)
+                        print('\nYou feel sicker.\n')
+                        break
+                    else:
+                        print('\nYou can\'t eat that!\n')
+                        break
+            else:
+                print('\nYou don\'t have that!\n')
+
+    def drink(self, command):
+        if len(command) < 2:
+            print('\n{} what?\n'.format(
+                command[0][0].upper() + command[0][1:]))
+        else:
+            for item in self.inventory:
+                if item.name == command[1]:
+                    if item.kind == 'food':
+                        self.health += item.modifier
+                        self.inventory.remove(item)
+                        print('\nYou feel stronger.\n')
+                        break
+                    elif item.kind == 'poison':
+                        self.health -= item.modifier
+                        self.inventory.remove(item)
+                        print('\nYou feel weaker.\n')
+                        break
+                    else:
+                        print('\nYou can\'t drink that!\n')
+                        break
+            else:
+                print('\nYou don\'t have that!\n')
+
+    def use(self, command):
+        if len(command) < 2:
+            print('\n{} what?\n'.format(
+                command[0][0].upper() + command[0][1:]))
+        else:
+            for item in self.inventory:
+                if item.name == command[1]:
+                    print('\nYou can\'t use that!\n')
+                    break
+            else:
+                for obj in self.location.items:
+                    if obj.name == command[1]:
+                        print('\nYou can\'t use that!\n')
+                        break

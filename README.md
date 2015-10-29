@@ -16,9 +16,11 @@ This was a fun exercise. I will add functionality as ideas come.
 
 ## Commands
 
-go {'north', 'south', 'east', 'west', 'up', 'down'} - Directions are based on the current map. They are customizable during room instantiation.
+go *direction*
 
 look - displays room contents
+
+list - displays player inventory
 
 get *item* - Transfers item from room inventory to player inventory
 
@@ -32,11 +34,11 @@ wear *armor* - Transfers armor from player inventory to player body
 
 teleport - Places player in a pseudo-randomly chosen room.
 
-use *item/object*- I'm envisioning scrolls/spells/artifacts but this could also be used for object iteraction
+use *item/object* -  used for object iteraction
 
-eat *item* - This will enable consumption of items to increase health (heal) or other effects
+eat *item* - consume items to increase health (heal) or other effects
 
-drink *item* - This will enable consumption of items to increase health (heal) or other effects
+drink *item* - imbibe items to increase health (heal) or other effects
 
 help - Displays list of commands
 

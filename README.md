@@ -34,11 +34,11 @@ wear *armor* - Transfers armor from player inventory to player body
 
 teleport - Places player in a pseudo-randomly chosen room.
 
-use *item/object* -  used for object iteraction
+use *item/object* - Used for object iteraction
 
-eat *item* - consume items to increase health (heal) or other effects
+eat *item* - Consume items to increase health (heal) or other effects
 
-drink *item* - imbibe items to increase health (heal) or other effects
+drink *item* - Imbibe items to increase health (heal) or other effects
 
 help - Displays list of commands
 

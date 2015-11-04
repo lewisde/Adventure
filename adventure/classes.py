@@ -121,6 +121,7 @@ class Player:
             for item in self.location.objects:
                 if command[1] == item.name:
                     print('\nYou can not carry that!\n')
+                    return
             else:
                 for item in self.location.items:
                     if command[1] == item.name:
@@ -163,10 +164,11 @@ class Player:
         else:
             for thing in self.inventory:
                 if command[1] == thing.name and thing.kind == 'weapon':
+                    self.inventory.append(self.weapon)
                     self.weapon = thing
                     self.inventory.remove(thing)
                     print('\nYou are now wielding {}.\n'.format(
-                        thing.description))
+                        thing.name))
                     break
             else:
                 print('\nYou don\'t have that!\n')
@@ -177,14 +179,22 @@ class Player:
                 command[0][0].upper() + command[0][1:]))
         else:
             for item in self.inventory:
+                print(item.name)
                 if command[1] == item.name and item.kind == 'armor':
                     if self.armor.name != 'skin':
+                        self.inventory.append(self.armor)
                         self.inventory.remove(item)
                     self.armor = item
                     print('\nYou are now wearing {}.\n'.format(item.name))
                     break
             else:
                 print('\nYou don\'t have that!\n')
+
+    def teleport(self):
+        import random
+        teleport_list = Room.teleport_list
+        next = random.choice(range(len(teleport_list)))
+        self.location = teleport_list[next]
 
     def attack(self, command):
         if len(command) < 2:
@@ -204,13 +214,16 @@ class Player:
                         print('\nThe {} is dead!\n'.format(enemy.name))
                         if enemy.name == 'player':
                             quit()
+                        else:
+                            enemy.health = 100
+                            enemy.teleport()
                         if enemy.weapon:
                             self.location.items.append(enemy.weapon)
                         if enemy.armor:
                             self.location.items.append(enemy.armor)
                         for item in enemy.inventory:
                             self.location.items.append(item)
-                        Player.player_list.remove(enemy)
+                        # Player.player_list.remove(enemy)
                         print(self.location)
                     return
             else:

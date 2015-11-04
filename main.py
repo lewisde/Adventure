@@ -1,7 +1,6 @@
 # David Lewis
 # dlewis@olivetcollege.edu
 
-import random
 from adventure.classes import Room
 from adventure.classes import Item
 from adventure.classes import Player
@@ -22,17 +21,15 @@ bedroom.doors({'down': rear})
 
 # self, name, location, modifier, value, description, kind
 
-knife = Item('knife', front, 20, 10, 'a pig sticker', 'weapon')
+knife = Item('knife', front, 50, 10, 'a pig sticker', 'weapon')
 front.add_item(knife)
-
-leather = Item('leather', front, 5, 10, 'armor', 'armor')
-
+leather = Item('armor', front, 5, 10, 'leather', 'armor')
 Item.skin = Item('skin', None, 0, 0, 'your epidermis', 'armor')
-
 claws = Item('claws', front, 5, 10, 'a monster\'s', 'weapon')
-
 table = Item('table', kitchen, 0, 0, 'a kitchen table', 'object')
 kitchen.add_object(table)
+bread = Item('bread', kitchen, 5, 2, 'stale bread', 'food')
+kitchen.add_item(bread)
 
 monster = Player('monster')
 monster.weapon = claws
@@ -46,9 +43,9 @@ player.armor = Item.skin
 def main():
 
     for character in Player.player_list:
-        teleport(character)
+        character.teleport()
 
-    teleport(player)
+    player.teleport()
 
     command_help()
 
@@ -72,7 +69,7 @@ def main():
         elif command[0] == 'list':
             print(player)
         elif command[0] == 'teleport':
-            teleport(player)
+            player.teleport()
             print(player.location)
         elif command[0] == 'wield':
             player.wield(command)
@@ -101,12 +98,8 @@ def move_others():
         if creature.name != 'player' and creature.location == player.location:
             print('\nFound you!\n')
             creature.attack(['attack', 'player'])
-
-
-def teleport(player):
-    teleport_list = Room.teleport_list
-    next = random.choice(range(len(teleport_list)))
-    player.location = teleport_list[next]
+        elif creature.name != 'player':
+            creature.teleport()
 
 
 def command_help():

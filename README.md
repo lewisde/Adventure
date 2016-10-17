@@ -1,6 +1,6 @@
 # Adventure
 
-This is a functional test bed used to demostrate the efficacy of objects to my Python class.
+This is a functional test bed used to demonstrate the efficacy of objects to my Python class.
 
 There are three classes: Room, Item, and Player. Instances of classes are referenced by their name property.
 

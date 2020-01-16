@@ -44,8 +44,6 @@ class Room:
 class Item:
     item_list = []
 
-    skin = None
-
     def __init__(self, name, location, modifier, value, description, kind):
         self.name = name
         self.location = location
@@ -235,21 +233,22 @@ class Player:
                 command[0][0].upper() + command[0][1:]))
         else:
             for item in self.inventory:
-                print(item.name)
-                if item.name == command[1]:
-                    if item.kind == 'food':
-                        self.health += item.modifier
-                        self.inventory.remove(item)
-                        print('\nYou feel healthier.\n')
-                        break
-                    elif item.kind == 'poison':
-                        self.health -= item.modifier
-                        self.inventory.remove(item)
-                        print('\nYou feel sicker.\n')
-                        break
-                    else:
-                        print('\nYou can\'t eat that!\n')
-                        break
+                if item != None:
+                    print(item.name)
+                    if item.name == command[1]:
+                        if item.kind == 'food':
+                            self.health += item.modifier
+                            self.inventory.remove(item)
+                            print('\nYou feel healthier.\n')
+                            break
+                        elif item.kind == 'poison':
+                            self.health -= item.modifier
+                            self.inventory.remove(item)
+                            print('\nYou feel sicker.\n')
+                            break
+                        else:
+                            print('\nYou can\'t eat that!\n')
+                            break
             else:
                 print('\nYou don\'t have that!\n')
 

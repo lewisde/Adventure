@@ -147,6 +147,8 @@ class Player:
                     print('\nYou cannot remove your skin!\n')
             else:
                 for item in self.inventory:
+                    if item == None:
+                        self.inventory.remove(item)
                     if command[1] == item.name:
                         self.location.items.append(item)
                         self.inventory.remove(item)
@@ -162,7 +164,8 @@ class Player:
         else:
             for thing in self.inventory:
                 if command[1] == thing.name and thing.kind == 'weapon':
-                    self.inventory.append(self.weapon)
+                    if self.weapon != None:
+                        self.inventory.append(self.weapon)
                     self.weapon = thing
                     self.inventory.remove(thing)
                     print('\nYou are now wielding {}.\n'.format(
